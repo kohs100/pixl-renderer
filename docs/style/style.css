@@ -1,0 +1,48 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: Roboto;
+    font-size: 20px;
+    color: white;
+}
+
+#mainContainer {
+    width: 100%;
+    height: 100%;
+    background-color: #363636;
+    position: absolute;
+}
+
+#searchContainer {
+    position: absolute;
+}
+
+#centerContainer {
+    position: absolute;
+}
+
+.borderBox {
+    border: 2px solid #C4C4C4;
+    border-radius: 20px;
+}
+
+.grayBox {
+    border-radius: 20px;
+    background-color: #545454;
+}
+
+.gridEntry {
+    text-align: center;
+}
+
+.gridValue {
+    padding-left: 10px;
+}
+
+#canvasContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
