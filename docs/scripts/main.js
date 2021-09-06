@@ -16,6 +16,7 @@ const gobjects = {
         id: null,
     },
     rbws: {
+        data: null,
         width: 16,
         height: 14,
         freq: 4,
@@ -38,7 +39,7 @@ function draw(curr) {
     for (let i of gobjects.rbws.id) {
         renderInfo[i] = {
             fid: curr % gobjects.rbws.freq,
-            offsetX: aquaX - i*16,
+            offsetX: aquaX - i * 16,
             offsetY: aquaY + 25
         }
     }
@@ -55,15 +56,15 @@ function step(timestamp) {
     if (elapsed > interval) {
         gstate.prev = timestamp;
         draw(gstate.fid);
-        gstate.fid = (gstate.fid+1) % frames;
+        gstate.fid = (gstate.fid + 1) % frames;
     }
-    
+
     window.requestAnimationFrame(step);
 }
 
 window.onload = function () {
     var container = document.getElementById('canvasContainer');
-    var psize = 5;
+    var psize = 10;
 
     pixlr = new PixlRenderer(
         container,
@@ -76,7 +77,9 @@ window.onload = function () {
     require('contents/nyan.json', (data) => {
         gobjects.aqua.id = pixlr.addImage(data);
         require('contents/rainbow.json', (data) => {
-            for(let i=0; i<10; i++) {
+            gobjects.rbws.data = data;
+            let rbwsnum = Math.ceil(pixlr.width / (gobjects.rbws.width * 2));
+            for (let i = 0; i < rbwsnum; i++) {
                 gobjects.rbws.id.push(pixlr.addImage(data));
             }
             window.requestAnimationFrame(step);
@@ -87,6 +90,14 @@ window.onload = function () {
         pixlr.resize(
             Math.ceil(container.offsetWidth / psize),
             Math.ceil(container.offsetHeight / psize)
-        )
+        );
+        let rbwsnum = Math.ceil(pixlr.width / (gobjects.rbws.width * 2));
+        let rbwsinc = rbwsnum - gobjects.rbws.id.length;
+
+        if (rbwsinc > 0) {
+            for (let i=0; i < rbwsinc; i++) {
+                gobjects.rbws.id.push(pixlr.addImage(gobjects.rbws.data));
+            }
+        }
     }, 100)
 }
