@@ -88,7 +88,7 @@ Load a pre-created `Pixlr JSON`.
 
 #### Load From Object
 
-Load JSON using another library and use `addImage()`. Useful for adding multiple images sharing same `Pixlr JSON`.
+Load JSON using another library and use `addImage()`. Useful for adding multiple images sharing same **Pixlr JSON**.
 
 You can find [require](docs/scripts/loader.js) here(Simple wrapper creating XHR request for JSON).
 

@@ -38,27 +38,38 @@ if __name__ == '__main__':
         'frames': []
     }
 
+    pmax = 0
+
     for i in range(img.n_frames):
         img.seek(i)
 
         palette = img.getpalette()
         if prevpalette != palette:
-            print('palette not global')
+            print('failed: palette not global. exiting...')
             exit()
 
         pixels = []
 
         for y in range(img.size[1]):
             for x in range(img.size[0]):
+                pval = img.getpixel((x, y))
+                if pmax < pval:
+                    pmax = pval
                 pixels.append(img.getpixel((x, y)))
 
         animjson['frames'].append(pixels)
 
-    print('palette global')
+    print('palette is global')
+    plen = len(animjson['palette'])
+    if pmax != plen:
+        print(f'removing unused palette space... {plen} -> {pmax+1}')
+        animjson['palette'] = animjson['palette'][:pmax+1]
+    else:
+        print(f'fully using palette space: {plen}colors')
 
     output = '.'.join(args.img.split('.')[:-1] + ['json'])
 
     with open(output, 'w') as fp:
-        json.dump(animjson, fp)
+        json.dump(animjson, fp, separators=(',', ':'))
 
     print('conversion complete.')
