@@ -14,7 +14,7 @@ Include in your HTML.
 
 ### Creating a new Pixl JSON
 
-Recommended to create through a script such as [gif2json](gif2json/README.md).
+Recommended to create through a script such as [gif2json](gif2json).
 
 You can append more frame to `frames` array to define animated gif or multiple images sharing palette.
 
