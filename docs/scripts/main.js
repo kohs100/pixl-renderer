@@ -6,8 +6,6 @@ const gstate = {
     fid: 0
 };
 
-var pixlr;
-
 const gobjects = {
     aqua: {
         width: 44,
@@ -24,12 +22,13 @@ const gobjects = {
     }
 }
 
+var pixlr;
+
 function draw(curr) {
+    const aquaX = Math.round((pixlr.width - gobjects.aqua.width) / 2);
+    const aquaY = Math.round((pixlr.height - gobjects.aqua.height) / 2);
+
     renderInfo = {};
-
-    aquaX = Math.round((pixlr.width - gobjects.aqua.width) / 2);
-    aquaY = Math.round((pixlr.height - gobjects.aqua.height) / 2);
-
     renderInfo[gobjects.aqua.id] = {
         fid: curr,
         offsetX: aquaX,
@@ -39,8 +38,8 @@ function draw(curr) {
     for (let i of gobjects.rbws.id) {
         renderInfo[i] = {
             fid: curr % gobjects.rbws.freq,
-            offsetX: aquaX - i * 16,
-            offsetY: aquaY + 25
+            offsetX: aquaX - i * gobjects.rbws.width,
+            offsetY: aquaY + gobjects.aqua.height - gobjects.rbws.height
         }
     }
     pixlr.render(renderInfo);
@@ -96,7 +95,7 @@ window.onload = function () {
         let rbwsinc = rbwsnum - gobjects.rbws.id.length;
 
         if (rbwsinc > 0) {
-            for (let i=0; i < rbwsinc; i++) {
+            for (let i = 0; i < rbwsinc; i++) {
                 gobjects.rbws.id.push(pixlr.addImage(gobjects.rbws.data));
             }
         }

@@ -90,8 +90,6 @@ Load a pre-created `Pixlr JSON`.
 
 Load JSON using another library and use `addImage()`. Useful for adding multiple images sharing same **Pixlr JSON**.
 
-You can find [require](docs/scripts/loader.js) here(Simple wrapper creating XHR request for JSON).
-
 Returns `ObjectID` of loaded image.
 
 ```js
@@ -102,6 +100,8 @@ require('path/to/pixl.json', (data) => {
     }
 });
 ```
+
+You can find [require](docs/scripts/loader.js) here(Simple wrapper creating XHR request for JSON).
 
 #### Load From URL
 
@@ -124,9 +124,9 @@ var renderInfo = {}
 
 for (let i of objects) {
     renderInfo[i] = {
-        fid: 0,
-        offsetX: 2 + 18 * i,
-        offsetY: 1 + i
+        fid: 0,                 // Render 0th frame of object which has ObjectID i
+        offsetX: 2 + 18 * i,    // at OffsetX: 2 + 18 * i
+        offsetY: 1 + i          // at OffsetY: 1 + i
     }
 }
 
@@ -139,3 +139,20 @@ pixlr.render(renderInfo);
 * [Animated demo](https://nyan.aquai.ro)
 
 ![sdemo](images/simple_demo.png)
+
+## Other methods
+
+### Resize
+
+You can dynamically change rendering resolution by `resize()`.
+
+```js
+window.onresize = debounce(() => {
+    pixlr.resize(
+        Math.ceil(rainbow.offsetWidth / psize),
+        Math.ceil(rainbow.offsetHeight / psize)
+    );
+}, 100)
+```
+
+You can find [debounce](docs/scripts/debounce.js) here(Simple implementation of debouncing)
