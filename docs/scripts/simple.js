@@ -28,12 +28,12 @@ window.addEventListener('load', () => {
 
     pixlr.setBackground('#18314D'); // Set background color (optional)
 
-    require('rainbow.json', (data) => {
+    require('contents/simple_rainbow.json', (data) => {
         for (let i = 0; i < 2; i++) {
             let objectID = pixlr.addImage(data);
             objects.push(objectID);
         }
-        pixlr.addImageFrom('rainbow.json', (id) => {
+        pixlr.addImageFrom('contents/simple_rainbow.json', (id) => {
             objects.push(id);
             draw(pixlr);
         })

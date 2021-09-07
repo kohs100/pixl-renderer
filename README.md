@@ -132,3 +132,10 @@ for (let i of objects) {
 
 pixlr.render(renderInfo);
 ```
+
+### Result
+
+* [Simple demo](https://nyan.aquai.ro/simple.html)
+* [Animated demo](https://nyan.aquai.ro)
+
+![sdemo](images/simple_demo.png)
