@@ -76,8 +76,8 @@ function PixlRenderer(elem, pwidth, pheight, psize) {
 
     this._elem.style.position = 'relative';
     this._elem.style.overflow = 'hidden';
-    this._elem.style.width = '100%';
-    this._elem.style.height = '100%';
+    this._elem.style.width = psize * pwidth + 'px';
+    this._elem.style.height = psize * pheight + 'px';
 
     elem.appendChild(this._elem);
 
@@ -102,6 +102,25 @@ function PixlRenderer(elem, pwidth, pheight, psize) {
         };
         return newID;
     };
+
+    this.addImageFrom = (url, callback) => {
+        var xhr = new XMLHttpRequest();
+        var capture = this.addImage;
+        xhr.responseType = 'json';
+        xhr.open('GET', url);
+        xhr.onload = () => {
+            if (xhr.status == 200) {
+                callback(capture(xhr.response));
+            } else {
+                console.log('addImageFrom Failed: ', xhr.statusText);
+                callback(undefined);
+            }
+        }
+        xhr.onerror = () => {
+            callback(undefined);
+        }
+        xhr.send();
+    }
 
     this.removeImage = (id) => {
         this._images[id].canvas.remove();

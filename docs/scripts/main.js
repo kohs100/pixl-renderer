@@ -74,16 +74,17 @@ window.onload = function () {
     );
     pixlr.setBackground('#18314D');
 
-    require('contents/nyan.json', (data) => {
-        gobjects.aqua.id = pixlr.addImage(data);
-        require('contents/rainbow.json', (data) => {
-            gobjects.rbws.data = data;
-            let rbwsnum = Math.ceil(pixlr.width / (gobjects.rbws.width * 2));
-            for (let i = 0; i < rbwsnum; i++) {
-                gobjects.rbws.id.push(pixlr.addImage(data));
-            }
-            window.requestAnimationFrame(step);
-        });
+    pixlr.addImageFrom('contents/nyan.json', (id) => {
+        gobjects.aqua.id = id;
+    })
+
+    require('contents/rainbow.json', (data) => {
+        gobjects.rbws.data = data;
+        let rbwsnum = Math.ceil(pixlr.width / (gobjects.rbws.width * 2));
+        for (let i = 0; i < rbwsnum; i++) {
+            gobjects.rbws.id.push(pixlr.addImage(data));
+        }
+        window.requestAnimationFrame(step);
     });
 
     window.onresize = debounce(() => {
