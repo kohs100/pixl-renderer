@@ -76,9 +76,8 @@ function PixlRenderer(elem, pwidth, pheight, psize) {
 
     this._elem.style.position = 'relative';
     this._elem.style.overflow = 'hidden';
-    this._elem.style.width = psize * pwidth + 'px';
-    this._elem.style.height = psize * pheight + 'px';
-
+    this._elem.style.width = '100%';
+    this._elem.style.height = '100%';
     elem.appendChild(this._elem);
 
     this.addImage = (obj) => {
