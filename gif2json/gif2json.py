@@ -23,8 +23,8 @@ def parse_palette(palette):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Process animated GIF image to renderable json file.')
-    parser.add_argument('img', help='Path to GIF file')
+        description='Process animated GIF image to renderable Pixl JSON file.')
+    parser.add_argument('img', help='Path to GIF image')
 
     args = parser.parse_args()
 
@@ -41,11 +41,12 @@ if __name__ == '__main__':
     pmax = 0
 
     for i in range(img.n_frames):
+        print(f'Processing frame{i}')
         img.seek(i)
 
         palette = img.getpalette()
         if prevpalette != palette:
-            print('failed: palette not global. exiting...')
+            print('Failed: palette not global. exiting...')
             exit()
 
         pixels = []
@@ -59,17 +60,17 @@ if __name__ == '__main__':
 
         animjson['frames'].append(pixels)
 
-    print('palette is global')
+    print('Palette is global')
     plen = len(animjson['palette'])
     if pmax != plen:
-        print(f'removing unused palette space... {plen} -> {pmax+1}')
+        print(f'Removing unused palette space... {plen} -> {pmax+1}')
         animjson['palette'] = animjson['palette'][:pmax+1]
     else:
-        print(f'fully using palette space: {plen}colors')
+        print(f'Fully using palette space: {plen}colors')
 
     output = '.'.join(args.img.split('.')[:-1] + ['json'])
 
     with open(output, 'w') as fp:
         json.dump(animjson, fp, separators=(',', ':'))
 
-    print('conversion complete.')
+    print(f'Conversion complete: {img.size[0]}x{img.size[1]}:{pmax+1}')
